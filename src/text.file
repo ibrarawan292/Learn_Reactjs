@@ -1,0 +1,7 @@
+To implement login and logout functionality in a React application using Axios interceptors and an instance in a separate file, you can follow these steps:
+
+1-Create a file for the Axios instance and interceptors, such as api.js. In this file, create an Axios instance with request and response interceptors that handle access and refresh tokens.
+2-In the request interceptor, add an Authorization header to the outgoing HTTP request if an access token is stored in local storage.
+3-In the response interceptor, check for a 401 status code, which indicates an unauthorized request, and attempt to refresh the access token using the refresh token if one is available. If the token refresh is successful, update the access token in local storage and retry the original request with the new token.
+4-In the login component, make an HTTP POST request to the login endpoint using the Axios instance. If the login is successful, store the access and refresh tokens in local storage.
+5-In the logout component, remove the access and refresh tokens from local storage and navigate to the login page.

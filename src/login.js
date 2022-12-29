@@ -7,7 +7,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -18,13 +17,19 @@ const Login = () => {
         password,
       })
       .then((response) => {
+        console.log(response.data);
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
-        // redirect to home page or display success message
-        navigate("MyComponent")
+        if (response.data.status === 404) {
+          setError(response.data.message);
+          navigate("/");
+        } else {
+          // redirect to home page or display success message
+          navigate("MyComponent");
+        }
       })
       .catch((error) => {
-        setError(error.response.data.error);
+        setError(error.response.data.message);
       });
   };
 

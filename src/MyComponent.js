@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Logout from "./logout";
-// import api from './api';
 import api from "./Services/Api";
+
 function MyComponent() {
   const [data, setData] = useState("");
 
@@ -9,7 +9,10 @@ function MyComponent() {
     api
       .get("/AdminDetails")
       .then((response) => {
-        console.log(response);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
         setData(response.data.data);
       })
       .catch((error) => {
@@ -17,17 +20,17 @@ function MyComponent() {
       });
   }, []);
 
-  return <>
- 
-    <div>
-      <h4>email: {data.email}</h4>
-      <h4>first Name: {data.firstname}</h4>
-      <h4>last Name: {data.lastname}</h4>
-      <h4>user Name: {data.username}</h4>
-      <Logout/>
-    </div>
-
-  </>;
+  return (
+    <>
+      <div>
+        <h4>email: {data.email}</h4>
+        <h4>first Name: {data.firstname}</h4>
+        <h4>last Name: {data.lastname}</h4>
+        <h4>user Name: {data.username}</h4>
+        <Logout />
+      </div>
+    </>
+  );
 }
 
 export default MyComponent;
